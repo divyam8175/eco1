@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "./../../components/Layout/Layout";
 import axios from "axios";
+import axiosInstance from '../../axiosConfig'; 
 import { useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
@@ -17,7 +18,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/auth/login", {
+      const res = await axiosInstance.post("/auth/login", {
         email,
         password,
       });
@@ -39,7 +40,7 @@ const Login = () => {
     }
   };
   return (
-    <Layout title="Register - Ecommer App">
+    <Layout title="Login - Ecommer App">
       <div className="form-container " style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
           <h4 className="title">LOGIN FORM</h4>
