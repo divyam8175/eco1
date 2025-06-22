@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Layout from "./../../components/Layout/Layout";
-import axios from "axios";
+// import axios from "axios";
 import axiosInstance from '../../axiosConfig'; 
 import { useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
+const API = process.env.REACT_APP_BACKEND_URL;
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,15 +14,16 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-
   // form function
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted:", { email, password });
     try {
-      const res = await axiosInstance.post("/auth/login", {
+      const res = await axiosInstance.post(`${API}/api/v1/auth/login`, {
         email,
         password,
       });
+      console.log("Form submitted:", { email, password });
       if (res && res.data.success) {
         toast.success(res.data && res.data.message);
         setAuth({
@@ -30,7 +32,7 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate(location.state || "/");
+        navigate(location.state || `${API}/`);
       } else {
         toast.error(res.data.message);
       }
