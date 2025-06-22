@@ -7,10 +7,10 @@ import moment from "moment";
 const API = process.env.REACT_APP_BACKEND_UR;
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const getOrders = async () => {
     try {
-      const { data } = await axios.get('${API}/api/v1/auth/orders');
+      const { data } = await axios.get(`${API}/api/v1/auth/orders`);
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -59,7 +59,7 @@ const Orders = () => {
                       <div className="row mb-2 p-3 card flex-row" key={p._id}>
                         <div className="col-md-4">
                           <img
-                            src={`/api/v1/product/product-photo/${p._id}`}
+                            src={`${API}/api/v1/product/product-photo/${p._id}`}
                             className="card-img-top"
                             alt={p.name}
                             width="100px"

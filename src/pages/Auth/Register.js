@@ -5,6 +5,7 @@ import axiosInstance from '../../axiosConfig'; // Import the Axios instance
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import '../../styles/AuthStyles.css';
+const API = process.env.REACT_APP_BACKEND_URL;
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -14,7 +15,6 @@ const Register = () => {
   const [address, setAddress] = useState('');
   const [answer, setAnswer] = useState('');
   const navigate = useNavigate();
-  const API = process.env.REACT_APP_BACKEND_URL;
   // form function
   const handleSubmit = async (e) => {
     e.preventDefault();

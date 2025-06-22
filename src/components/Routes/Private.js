@@ -3,14 +3,14 @@ import { useAuth } from "../../context/auth";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../Spinner";
-
+const API = process.env.REACT_APP_BACKEND_URL;
 export default function PrivateRoute() {
   const [ok, setOk] = useState(false);
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
 
   useEffect(() => {
     const authCheck = async () => {
-      const res = await axios.get("/api/v1/auth/user-auth");
+      const res = await axios.get(`${API}/api/v1/auth/user-auth`);
       if (res.data.ok) {
         setOk(true);
       } else {
